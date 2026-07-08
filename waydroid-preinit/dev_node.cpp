@@ -39,6 +39,11 @@ namespace DevNode {
         { "/dev/dri/render", AID_ROOT,   AID_GRAPHICS, 0666 },
     }};
 
+    static constexpr std::array<std::string, 3> hostBinderNodes = {
+        "/dev/host_binder",
+        "/dev/host_hwbinder",
+    };
+
     void fixPermission() {
         std::error_code error;
 
@@ -78,6 +83,10 @@ namespace DevNode {
 
                 // Skip binder nodes
                 if (std::find(std::begin(binderNodes), std::end(binderNodes), mntEntry->mnt_dir) != std::end(binderNodes)) {
+                    continue;
+                }
+                // Same for host binder nodes on Halium devices
+                if (std::find(std::begin(hostBinderNodes), std::end(hostBinderNodes), mntEntry->mnt_dir) != std::end(hostBinderNodes)) {
                     continue;
                 }
 

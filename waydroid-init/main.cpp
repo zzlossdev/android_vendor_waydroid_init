@@ -49,6 +49,14 @@ int main(int argc, char **argv) {
     Log::init(LOG_TAG);
     base::SetProperty("waydroid.init.start", "1");
 
+    // On Halium-based setups the device provides its own GPU/EGL/gralloc
+    // stack through vendor blobs (marked by the presence of /vendor_extra)
+    if (filesystem::exists("/vendor_extra")) {
+        Log::info("Halium vendor (/vendor_extra) detected; skipping GPU auto-detection");
+        base::SetProperty("waydroid.init.done", "1");
+        return 0;
+    }
+
     if (settings.getBoolSetting("ro.waydroid.running_in_docker")) {
         Log::info("Running in Docker");
 
