@@ -19,7 +19,6 @@ class WaydroidProp {
             { "sys.use_memfd",               "true"                },
             { "waydroid.background_start",   "false"               },
             { "waydroid.pulse_runtime_path", "/run/xdg/pulse"      },
-            { "waydroid.stub_sensors_hal",   "1"                   },
             { "waydroid.wayland_display",    "wayland-0"           },
             { "waydroid.xdg_runtime_dir",    "/run/xdg"            },
         };
